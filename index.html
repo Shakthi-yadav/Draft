@@ -73,7 +73,7 @@
             display: none;
         }
         img {
-            max-width: 100%;
+            max-width: 50%;
             height: auto;
             margin-top: 10px;
         }
@@ -150,12 +150,13 @@
                     <title>Invoice</title>
                     <style>
                         body { font-family: 'Arial', sans-serif; padding: 20px; background-color: #f0f8ff; }
-                        h2 { text-align: center; color: #333; }
+                        h2 { text-align: center; color:RED; }
                         p { margin: 5px 0; }
                         .invoice-container { max-width: 600px; margin: auto; padding: 20px; border-radius: 8px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
                         .invoice-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
-                        .invoice-row p { flex: 1; text-align: center; }
-                        img { max-width: 80%; height: auto; margin-top: 10px; }
+                        .invoice-row p { flex: 1; text-align: left; }
+                        .invoice-rowAMT { flex: 1; text-align: center; color: green }
+                        img { max-width: 50%; height: auto; margin-top: 10px; }
                     </style>
                 </head>
                 <body>
@@ -172,23 +173,33 @@
                             <p><strong>Water Amount:</strong> ${waterAmount}</p>
                         </div>
                         <div class="invoice-row">
-                            <p><strong>Electricity Bill:</strong> ${electricityBill}</p>
+                            <p><strong> Electricity Bill : </strong> ${electricityBill}</p>
                         </div>
                         <div class="invoice-row">
                             <p><strong>Cleaning Fee:</strong> ${cleaningFee}</p>
                         </div>
                         <div class="invoice-row">
-                            <p>------------------------------------------------------------------------</p>
+                            <p>---------------------------------------------------------------------------------------------------------------</p>
                         </div>
-                        <div class="invoice-row">
+                        <div class="invoice-rowAMT">
                             <p><strong>Total Amount:</strong> ${totalAmount}</p>
                         </div>
                         <div class="invoice-row">
-                            <p><strong>Water Meter Reading Image:</strong></p>
+                            <p>---------------------------------------------------------------------------------------------------------------</p>
+                        </div>
+                        <div class="invoice-row">
+                            <br></br>
+                            </div>
+                        <div class="invoice-row">
+                            <br></br>
+                            </div>
+                        
+                        <div class="invoice-row">
+                            <p><strong>Water Meter Reading:</strong></p>
                             <img src="${waterMeterImage}" alt="Water Meter Reading Image">
                         </div>
                         <div class="invoice-row">
-                            <p><strong>Electricity Bill Image:</strong></p>
+                            <p><strong> Electricity Bill:</strong></p>
                             <img src="${electricityBillImage}" alt="Electricity Bill Image">
                         </div>
                     </div>
@@ -200,9 +211,9 @@
             const invoiceUrl = URL.createObjectURL(invoiceBlob);
             const downloadLink = document.createElement('a');
             downloadLink.href = invoiceUrl;
-            downloadLink.download = 'invoice.html';
+            downloadLink.download = `${roomNo}_invoice.html`;
             downloadLink.textContent = 'Download Invoice';
-            document.body.appendChild(downloadLink);
+            document.querySelector('.container').appendChild(downloadLink);
         }
 
         window.onload = populateMonth;
@@ -213,7 +224,7 @@
         <h1>Billing - Nandha Gokula</h1>
         <form onsubmit="generateInvoice(event)">
             <label for="month">Select Month:</label>
-            <  <select id="month" name="month" required>
+              <select id="month" name="month" required>
                 <option value="">Select month</option>
                 <option value="January">January</option>
                 <option value="February">February</option>
@@ -287,7 +298,7 @@
             <img id="electricityBillPreview" class="hidden" alt="Electricity Bill Image Preview">
             <button type="submit">Generate Bill</button>
         </form>
-        <div id="invoice" class="invoice"></div>
+        
     </div>
 </body>
 </html>
