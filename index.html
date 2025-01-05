@@ -135,6 +135,8 @@
             const tenantName = document.getElementById('tenantName').value;
             const roomNo = document.getElementById('roomNo').value;
             const month = document.getElementById('month').value;
+            const leaseRent = document.getElementById('leaseRent').value;
+            const rentAmount = leaseRent === 'Rent' ? parseInt(document.getElementById('rentAmount').value) || 0 : 0;
             const waterNewReading = document.getElementById('waterNewReading').value;
             const waterOldReading = document.getElementById('waterOldReading').value;
             const waterAmount = document.getElementById('waterAmount').value;
@@ -144,13 +146,15 @@
             const waterMeterImage = document.getElementById('waterMeterPreview').src;
             const electricityBillImage = document.getElementById('electricityBillPreview').src;
 
+            const leaseRentInfo = leaseRent === 'Lease' ? `<p><strong>Type:</strong> Lease</p>` : `<p><strong>Rent:</strong> ${rentAmount}</p>`;
+
             const invoiceContent = `
                 <html>
                 <head>
                     <title>Invoice</title>
                     <style>
                         body { font-family: 'Arial', sans-serif; padding: 20px; background-color: #f0f8ff; }
-                        h2 { text-align: center; color:RED; }
+                        h2 { text-align: center; color: RED; }
                         p { margin: 5px 0; }
                         .invoice-container { max-width: 600px; margin: auto; padding: 20px; border-radius: 8px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
                         .invoice-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
@@ -173,7 +177,8 @@
                             <p><strong>Water Amount:</strong> ${waterAmount}</p>
                         </div>
                         <div class="invoice-row">
-                            <p><strong> Electricity Bill : </strong> ${electricityBill}</p>
+                            <p><strong>Electricity Bill:</strong> ${electricityBill}</p>
+                            ${leaseRentInfo}
                         </div>
                         <div class="invoice-row">
                             <p><strong>Cleaning Fee:</strong> ${cleaningFee}</p>
@@ -189,17 +194,16 @@
                         </div>
                         <div class="invoice-row">
                             <br></br>
-                            </div>
+                        </div>
                         <div class="invoice-row">
                             <br></br>
-                            </div>
-                        
+                        </div>
                         <div class="invoice-row">
                             <p><strong>Water Meter Reading:</strong></p>
                             <img src="${waterMeterImage}" alt="Water Meter Reading Image">
                         </div>
                         <div class="invoice-row">
-                            <p><strong> Electricity Bill:</strong></p>
+                            <p><strong>Electricity Bill:</strong></p>
                             <img src="${electricityBillImage}" alt="Electricity Bill Image">
                         </div>
                     </div>
@@ -224,7 +228,7 @@
         <h1>Billing - Nandha Gokula</h1>
         <form onsubmit="generateInvoice(event)">
             <label for="month">Select Month:</label>
-              <select id="month" name="month" required>
+            <select id="month" name="month" required>
                 <option value="">Select month</option>
                 <option value="January">January</option>
                 <option value="February">February</option>
@@ -298,7 +302,6 @@
             <img id="electricityBillPreview" class="hidden" alt="Electricity Bill Image Preview">
             <button type="submit">Generate Bill</button>
         </form>
-        
     </div>
 </body>
 </html>
